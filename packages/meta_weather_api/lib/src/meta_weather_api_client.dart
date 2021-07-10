@@ -11,7 +11,13 @@ class LocationNotFoundFailure implements Exception {}
 class WeatherRequestFailure implements Exception {}
 
 class MetaWeatherApiClient {
-  final _httpClient = http.Client();
+  static const _baseUrl = 'www.metaweather.com';
+
+  MetaWeatherApiClient({
+    http.Client? httpClient
+  }) : _httpClient = httpClient ?? http.Client();
+
+  final http.Client _httpClient;
 
   Future<Weather> getWeather(int locationId) async {
     final weatherRequest = Uri.https(_baseUrl, '/api/location/$locationId');
